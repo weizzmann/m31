@@ -21,11 +21,11 @@ type App struct {
 }
 
 func NewApp(logger *logging.Logger, database *mongo.Database, collection string) (*App, error) {
-	//logger.Info("register user storage")
+	logger.Info("register user storage")
 	storage := db.NewStorage(logger, database, collection)
-	//logger.Info("register user service")
+	logger.Info("register user service")
 	service := user.NewService(logger, storage)
-	//logger.Info("register user handler")
+	logger.Info("register user handler")
 	handler := user.NewHandler(logger, service)
 	return &App{
 		Storage: storage,
