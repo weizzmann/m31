@@ -50,11 +50,11 @@ func (a *App) Serve(ctx context.Context, chi *chi.Mux, addr string) (err error) 
 		}
 	}()
 
-	a.Service.Logger.Infof("app started: %v", addr)
+	a.Service.Logger.Infof("server started: %v", addr)
 
 	<-ctx.Done()
 
-	a.Service.Logger.Infof("app stopped")
+	a.Service.Logger.Infof("server stopped")
 
 	ctxShutDown, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer func() {
@@ -62,10 +62,10 @@ func (a *App) Serve(ctx context.Context, chi *chi.Mux, addr string) (err error) 
 	}()
 
 	if err = srv.Shutdown(ctxShutDown); err != nil {
-		a.Service.Logger.Fatalf("app shutdown Failed:%+s", err)
+		a.Service.Logger.Fatalf("server shutdown failed: %+s", err)
 	}
 
-	a.Service.Logger.Infof("app exited properly")
+	a.Service.Logger.Infof("server exited properly")
 
 	if err == http.ErrServerClosed {
 		err = nil
