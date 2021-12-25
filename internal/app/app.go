@@ -34,10 +34,10 @@ func NewApp(logger *logging.Logger, database *mongo.Database, collection string)
 	}, nil
 }
 
-func (a *App) Serve(ctx context.Context, chi *chi.Mux, addr string) (err error) {
+func (a *App) Serve(ctx context.Context, chi *chi.Mux, port string) (err error) {
 
 	srv := &http.Server{
-		Addr:           addr,
+		Addr:           port,
 		Handler:        chi,
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
@@ -50,7 +50,7 @@ func (a *App) Serve(ctx context.Context, chi *chi.Mux, addr string) (err error) 
 		}
 	}()
 
-	a.Service.Logger.Infof("server started: %v", addr)
+	a.Service.Logger.Infof("server started: %v", port)
 
 	<-ctx.Done()
 

@@ -1,0 +1,30 @@
+http://localhost:8081/api/rawdata
+http://localhost:8081/dashboard/
+
+curl -H Host:app.docker.localhost http://127.0.0.1:8080
+
+docker-compose up -d
+docker-compose up -d --scale app=2
+
+
+version: '2.2'
+services:
+  reverse-proxy:
+    image: traefik
+    # Enables the web UI and tells Traefik to listen to docker
+    #command: --api --docker
+    command: --api.insecure=true --providers.docker
+    ports:
+      - "8080:80"
+      - "8081:8080"  # Traefik's web UI, enabled by --api
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  app:
+    image: app
+    environment:
+      APP_PORT: ":8001"
+    labels:
+      - "traefik.http.routers.app.rule=Host(`localhost`)"
+

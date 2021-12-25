@@ -1,5 +1,5 @@
 ### GetUserByID
-GET http://localhost:1234/users/61bfae801fb383d90fe56fc1
+GET http://localhost:80/users/61bfae801fb383d90fe56fc1
 Content-Type: application/json
 
 > {%
@@ -9,7 +9,7 @@ client.test("Request executed successfully", function() {
 %}
 
 ### GetUsers
-GET http://localhost:1234/users
+GET http://localhost/users
 Content-Type: application/json
 
 > {%

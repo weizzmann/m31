@@ -9,9 +9,12 @@ import (
 	"github.com/go-chi/chi/v5"
 
 	"m31/internal/app"
-	"m31/internal/config"
 	"m31/pkg/client/mongodb"
 	"m31/pkg/logging"
+)
+
+const (
+	mongoDBCollection = "users"
 )
 
 func main() {
@@ -25,8 +28,8 @@ func main() {
 	logger.Info("create router")
 	router := chi.NewRouter()
 
-	logger.Info("get config")
-	cfg := config.GetConfig()
+	//logger.Info("get config")
+	//cfg := config.GetConfig()
 
 	logger.Info("connection to mongodb")
 	mongoDBClient, err := mongodb.NewClientCloud(context.Background())
@@ -35,19 +38,21 @@ func main() {
 	}
 
 	logger.Info("create app")
-	app, err := app.NewApp(logger, mongoDBClient, cfg.MongoDB.Collection)
+	myApp, err := app.NewApp(logger, mongoDBClient, mongoDBCollection)
 	if err != nil {
 		logger.Fatal(err)
 	}
-	app.Handler.Register(router)
+	myApp.Handler.Register(router)
 
 	logger.Info("run app")
 	go func() {
-		syscall := <-c
-		logger.Infof("system call:%+v", syscall)
+		sysCall := <-c
+		logger.Infof("system call:%+v", sysCall)
 		cancel()
 	}()
-	if err = app.Serve(ctx, router, "127.0.0.1:1234"); err != nil {
+
+	port := os.Getenv("APP_PORT")
+	if err = myApp.Serve(ctx, router, port); err != nil {
 		logger.Infof("failed to serve:+%v\n", err)
 	}
 }
