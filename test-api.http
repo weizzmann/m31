@@ -1,5 +1,5 @@
 ### GetUserByID
-GET http://localhost:80/users/61bfae801fb383d90fe56fc1
+GET http://localhost:8080/users/61bfae801fb383d90fe56fc1
 Content-Type: application/json
 
 > {%
@@ -9,7 +9,7 @@ client.test("Request executed successfully", function() {
 %}
 
 ### GetUsers
-GET http://localhost/users
+GET http://localhost:8080/users
 Content-Type: application/json
 
 > {%
@@ -19,12 +19,12 @@ client.test("Request executed successfully", function() {
 %}
 
 ### CreateUser
-POST http://localhost:1234/users
+POST http://localhost:8080/users
 Content-Type: application/json
 
 {
-  "name": "plex",
-  "age":88
+  "name": "lplex",
+  "age":8
 }
 
 > {%
@@ -34,11 +34,11 @@ client.test("Request executed successfully", function() {
 %}
 
 ### UpdateUser
-PUT http://localhost:1234/users/61bfae8f1fb383d90fe56fc3
+PUT http://localhost:8080/users/61bfae8f1fb383d90fe56fc3
 Content-Type: application/json
 
 {
-  "age": 111
+  "age": 11
 }
 
 > {%
@@ -48,7 +48,7 @@ client.test("Request executed successfully", function() {
 %}
 
 ### DeleteUser
-DELETE http://localhost:1234/users/61bfae7b1fb383d90fe56fc0
+DELETE http://localhost:8080/users/61bfae8f1fb383d90fe56fc3
 Content-Type: application/json
 
 
@@ -59,12 +59,12 @@ client.test("Request executed successfully", function() {
 %}
 
 ### MakeFriends
-POST http://localhost:1234/users/make_friends
+POST http://localhost:8080/users/make_friends
 Content-Type: application/json
 
 {
-  "source_id": "61bfae7b1fb383d90fe56fc0",
-  "target_id": "61bfae9a1fb383d90fe56fc5"
+  "source_id": "61bfcf84688934ee5be012aa",
+  "target_id": "61c78576a5a2b47509fa2f29"
 }
 
 > {%
@@ -74,7 +74,7 @@ client.test("Request executed successfully", function() {
 %}
 
 ### GetUserFriends
-GET http://localhost:1234/users/61bfae7b1fb383d90fe56fc0/friends
+GET http://localhost:8080/users/61c78576a5a2b47509fa2f29/friends
 Content-Type: application/json
 
 > {%
